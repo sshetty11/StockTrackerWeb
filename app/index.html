@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+<script>
+
+
+</script>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+
+  <title>Stock Tracker</title>
+</head>
+
+<body ng-app="F1FeederApp" ng-controller="driversController">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+
+  <h1>Stock Tracker</h1>
+
+</nav>
+<br/><br/>
+  <div id="maindiv" ng-controller="driversController as ctrl" layout="column" ng-cloak>
+
+    <md-content class="md-padding">
+      <form ng-submit="$event.preventDefault()">
+        <md-autocomplete
+            id = "stockId"
+            ng-disabled="ctrl.isDisabled"
+            md-no-cache="ctrl.noCache"
+            md-selected-item="ctrl.selectedItem"
+            md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+            md-search-text="ctrl.searchText"
+            md-selected-item-change="ctrl.selectedItemChange(item)"
+            md-items="item in ctrl.querySearch(ctrl.searchText)"
+            md-item-text="item.display"
+            md-min-length="0"
+            placeholder="Company name">
+          <md-item-template>
+            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item}}</span>
+          </md-item-template>
+        </md-autocomplete>
+
+
+        <input id="btnSubmit" type="submit" value="Stock Value" style='background-color:#4d985a;margin-top: -1px;' class="md-raised md-primary md-button md-ink-ripple" ng-click="update(ctrl.searchText)" />
+      </form>
+    </md-content>
+<br/><br/>
+<div>
+  <div id="divStock" ng-show = "divVisibility">
+    <b>{{stockResponse.stock.name}}({{stockResponse.stock.symbol}})</b><br/><br/> <span id="stockValue" style='color:green'>{{stockResponse.stock.price}}</span> USD
+  </div>
+  <br/>
+
+
+
+<div id = "listGroup" ng-show = "listVisibility">
+  <div style="
+      display: block;
+      position: relative;
+      z-index: 9;
+      width: 100%;
+      margin-bottom: -15px;
+      padding: 10px 10px 10px 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      background: #77d9ae;
+      margin-left: -10px;
+    margin-right: -10px;
+  ">
+    News
+    </div>
+  <div ng-repeat="news in stockResponse.news" >
+
+  <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch="" >
+        <md-card-title style='padding-top:0px'>
+          <md-card-title-text>
+            <!-- <span class="md-headline">Card with image</span>
+            <span class="md-subhead">Large</span>
+             -->
+            <a  href={{news.url}} target="_blank" class="md-subhead"  style='padding-top:0px; height:40px; color:green'> <h3>{{news.name}}</h3></a>
+            <md-card-actions layout="row" layout-align=" center" class="layout-align-end-center layout-row">
+
+            <span style="width: 200px;height: 100px;">
+            <img src={{news.contentUrl}} ></img>
+          </span>
+            <span style="padding-left: 20px;">
+              {{news.description}}..
+              <a href={{news.url}} target="_blank">more</a><br/><br/>
+
+            </span>
+          </md-card-actions>
+          </md-card-title-text>
+        </md-card-title>
+
+
+</div>
+</div>
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="/bower_components/angular-aria/angular-aria.js"></script>
+	<script src="/bower_components/angular-animate/angular-animate.js"></script>
+	<script src="/bower_components/angular-material/angular-material.js"></script>
+  <script src="app.js"></script>
+  <script src="controllers.js"></script>
+  <script src="Services.js"></script>
+</body>
+</html>
