@@ -5,12 +5,13 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.version'
 ]).
+
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
-
   $routeProvider.otherwise({redirectTo: '/view1'});
 }]);
-angular.module('F1FeederApp', [
-  'F1FeederApp.controllers',
-  'F1FeederApp.services'
+
+angular.module('StockTrackerApp', [
+  'StockTrackerApp.controllers',
+  'StockTrackerApp.services'
 ]);
