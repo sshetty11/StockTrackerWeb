@@ -1,5 +1,6 @@
 # StockTrackerWeb
-You can see this running at http://www.stockvals.com
+You can see this running at http://www.stockvals.com.
+
 This app will let you search for a company and find out its stock value. It will also fetch the latest news related to the stock.
 Currently only NASDAQ symbols supported.
 
