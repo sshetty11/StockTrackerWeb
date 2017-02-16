@@ -28,5 +28,7 @@
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor e2e-tests/protractor.conf.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "angular-spinners": "^3.1.2"
+  }
 }

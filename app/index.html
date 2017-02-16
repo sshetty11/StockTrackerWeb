@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="bower_components/angular/angular.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
     <title>Stock Tracker</title>
   </head>
-  <body ng-app="StockTrackerApp" ng-controller="driversController">
+  <body ng-app="StockTrackerApp" ng-controller="stockController" class="ng-cloak">
     <nav class="navbar navbar-inverse navbar-fixed-top">
-      <h1>Stock Tracker</h1>
+      <div class="bar">Stock Tracker</div>
+        <div class="bar-content">
+          <div class="bar-text">Find the stock value and news associated with any NASDAQ stock.</div>
+          <div class="bar-text">You can enter the company name or stock symbol below</div>
+      </div>
+     </div>
     </nav>
     <br/><br/>
-    <div id="maindiv" ng-controller="driversController as ctrl" layout="column" ng-cloak>
+    <div id="maindiv" ng-controller="stockController as ctrl" layout="column" ng-cloak>
       <md-content class="md-padding">
         <form ng-submit="$event.preventDefault()">
         <md-autocomplete
@@ -21,13 +27,13 @@
           md-search-text="ctrl.searchText"
           md-items="item in ctrl.querySearch(ctrl.searchText)"
           md-item-text="item.display"
-          md-min-length="0"
+          md-min-length="1"
           placeholder="Company name">
           <md-item-template>
           <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item}}</span>
           </md-item-template>
         </md-autocomplete>
-        <input id="btnSubmit" type="submit" value="Stock Value" style='background-color:#4d985a;margin-top: -1px;' class="md-raised md-primary md-button md-ink-ripple" ng-click="update(ctrl.searchText)" />
+        <input id="btnSubmit" type="submit" value="Stock Value" style='background-color:#2b9a6c;margin-top: -1px;' class="md-raised md-primary md-button md-ink-ripple" ng-click="update(ctrl.searchText)" />
         </form>
       </md-content>
       <br/><br/>
@@ -45,7 +51,7 @@
                 <a  href={{news.url}} target="_blank" class="md-subhead"  style='padding-top:0px; height:40px; color:green'> <h3>{{news.name}}</h3></a>
                 <md-card-actions layout="row" layout-align=" center" class="layout-align-end-center layout-row">
                   <span style="width: 200px;height: 100px;">
-                    <img src={{news.contentUrl}} ></img>
+                    <img ng-src={{news.contentUrl}} ></img>
                   </span>
                   <span style="padding-left: 20px;">
                     {{news.description}}..
@@ -57,7 +63,13 @@
         </md-card>
         </div>
     </div>
-    <script src="bower_components/angular/angular.js"></script>
+
+    <div ng-controller="stockController" class="hide-animation ng-hide-add-active">
+      <img id="loadingSpinner" src="spinner.gif" ng-show="loading" />
+    </div>
+    <div id="errorDiv" ng-controller="stockController" class="hide-animation ng-hide-add-active" ng-show="error">
+      Sorry, Something went wrong. The servers aren't serving!
+    </div>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="/bower_components/angular-aria/angular-aria.js"></script>
     	<script src="/bower_components/angular-animate/angular-animate.js"></script>
